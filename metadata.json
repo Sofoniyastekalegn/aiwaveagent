@@ -1,0 +1,7 @@
+{
+  "name": "AIWaveAgency",
+  "description": "Premium AI Automation & Voice Agent Platform for service-based businesses.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
