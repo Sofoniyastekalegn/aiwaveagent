@@ -6,7 +6,7 @@ import {
   TrendingUp, CheckCircle2, AlertCircle, Clock,
   MoreVertical, Download, ExternalLink, Play, Menu, X, LogOut, RefreshCw
 } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import LazyAreaChart from './LazyAreaChart';
 import { MOCK_CALLS } from '../constants';
 import Waveform from './Waveform';
 import ConversationModal from './ConversationModal';
@@ -127,21 +127,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onBackToHome, onLogout, user }) =
             <div className="md:col-span-2 bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm">
               <h3 className="text-2xl font-black text-slate-950 italic tracking-tighter uppercase mb-8">AI Booking Trend</h3>
               <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={chartData}>
-                    <defs>
-                      <linearGradient id="colorCalls" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2}/>
-                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 10}} />
-                    <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 10}} />
-                    <Tooltip contentStyle={{borderRadius: '20px', border: 'none', boxShadow: '0 10px 20px rgba(0,0,0,0.1)'}} />
-                    <Area type="monotone" dataKey="calls" stroke="#6366f1" strokeWidth={4} fill="url(#colorCalls)" />
-                  </AreaChart>
-                </ResponsiveContainer>
+                <LazyAreaChart data={chartData} />
               </div>
             </div>
 
