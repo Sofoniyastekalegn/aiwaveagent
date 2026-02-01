@@ -37,7 +37,14 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, onSuccess }) => {
         onSuccess(data.user);
       }
     } catch (err: any) {
-      setError(err.message || 'Authentication failed');
+      const msg = err?.message || 'Authentication failed';
+      if (msg === 'Failed to fetch' || msg.includes('fetch')) {
+        setError(
+          'Cannot reach Supabase. Check: 1) Internet connection 2) .env has VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY from Supabase Dashboard → Settings → API (anon key should start with eyJ...)'
+        );
+      } else {
+        setError(msg);
+      }
     } finally {
       setLoading(false);
     }
