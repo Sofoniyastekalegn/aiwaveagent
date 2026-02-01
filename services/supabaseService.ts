@@ -1,10 +1,17 @@
-
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://lwiiaxtmnuiqqookqeoe.supabase.co';
-const supabaseAnonKey = 'sb_publishable_PO41jbJE5FHGs4XH03S-zw_f-0MeF1m';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL ?? 'https://lwiiaxtmnuiqqookqeoe.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? '';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+if (!supabaseAnonKey) {
+  console.error(
+    '[AIWave] Login will fail: Missing VITE_SUPABASE_ANON_KEY. ' +
+    'Create a .env file with VITE_SUPABASE_ANON_KEY from Supabase Dashboard → Settings → API. ' +
+    'The anon key is a long JWT starting with eyJ...'
+  );
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey || 'placeholder');
 
 export const saveCallLog = async (userId: string, data: {
   phone_number: string;
