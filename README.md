@@ -32,10 +32,25 @@ View your app in AI Studio: https://ai.studio/apps/drive/1iDOb1CqoxMxTB3wK0s1-Hm
    npm run dev
    ```
 
-### Login shows "Failed to fetch"?
+### Login shows "Failed to fetch" or "Invalid API key"?
 
-This usually means invalid or missing Supabase credentials:
+This means missing or wrong Supabase credentials:
 
 - Ensure `.env` exists with `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
 - The anon key must be the full JWT from Supabase (starts with `eyJ`, ~200+ chars)
 - Restart the dev server after changing `.env`
+
+---
+
+## Deploy on Vercel
+
+1. Push your code to GitHub and import the repo at [vercel.com/new](https://vercel.com/new).
+
+2. **Add Environment Variables** (required for login to work):
+   - Go to your Vercel project → **Settings** → **Environment Variables**
+   - Add `VITE_SUPABASE_URL` = your Supabase project URL (e.g. `https://xxxxx.supabase.co`)
+   - Add `VITE_SUPABASE_ANON_KEY` = your Supabase **anon** key from [Supabase Dashboard](https://supabase.com/dashboard) → Your Project → **Settings** → **API** → copy the "anon public" key
+
+3. **Redeploy** after adding env vars (Deployments → ⋮ → Redeploy).
+
+**Important:** Use the **anon** key, not the service_role key. The anon key starts with `eyJ` and is ~200 characters.

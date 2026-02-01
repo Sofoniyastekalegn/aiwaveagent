@@ -37,13 +37,17 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, onSuccess }) => {
         onSuccess(data.user);
       }
     } catch (err: any) {
-      const msg = err?.message || 'Authentication failed';
-      if (msg === 'Failed to fetch' || msg.includes('fetch')) {
+      const msg = String(err?.message || 'Authentication failed').toLowerCase();
+      if (msg === 'failed to fetch' || msg.includes('fetch')) {
         setError(
-          'Cannot reach Supabase. Check: 1) Internet connection 2) .env has VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY from Supabase Dashboard → Settings → API (anon key should start with eyJ...)'
+          'Cannot reach Supabase. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Vercel → Project Settings → Environment Variables. Get keys from supabase.com/dashboard → Settings → API.'
+        );
+      } else if (msg.includes('invalid api key') || msg.includes('invalid_api_key')) {
+        setError(
+          'Invalid Supabase key. In Vercel → Project Settings → Environment Variables, add VITE_SUPABASE_ANON_KEY with the anon key from supabase.com/dashboard → Settings → API (starts with eyJ...). Redeploy after adding.'
         );
       } else {
-        setError(msg);
+        setError(err?.message || 'Authentication failed');
       }
     } finally {
       setLoading(false);
