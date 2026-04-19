@@ -77,6 +77,20 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose, onSuccess }) => {
           <p className="text-slate-500 text-center text-sm font-medium mb-10">
             {isLogin ? 'Login to manage your AI agents' : 'Start your 14-day free trial today'}
           </p>
+          <div className="goh-guidance p-3 mb-6 text-left">
+            <p className="text-xs font-semibold mb-2">
+              {isLogin
+                ? 'Sign in to continue workflow setup, review calls, and manage automated follow-ups.'
+                : 'Create your account first, then connect phone and workflow automations step by step.'}
+            </p>
+            <button
+              type="button"
+              onClick={onClose}
+              className="goh-action-btn px-3 py-1.5 rounded-lg text-xs font-semibold"
+            >
+              Skip for Now
+            </button>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
